@@ -1,0 +1,144 @@
+<div class="pollution-report-container">
+  @if (!pollutionFormValid){
+  <form
+    [formGroup]="pollutionForm"
+    (ngSubmit)="onSubmit()"
+    class="pollution-form"
+  >
+    <div class="form-input">
+      <label for="title">Titre: </label>
+      <input type="text" id="title" formControlName="title" />
+      @if ((pollutionForm.get('title')?.touched || submitted) &&
+      pollutionForm.get('title')?.invalid) {
+      <div class="error-message">
+        <small>Titre requis</small>
+      </div>
+      }
+    </div>
+
+    <div class="form-input">
+      <label for="polluant">Type de polluant: </label>
+      <select name="polluant" id="polluant" formControlName="pollutionType">
+        <option value="">--Please choose an option--</option>
+        <option value="plastic">Plastique</option>
+        <option value="chemical">Chimique</option>
+        <option value="wild-dump">Dépôt sauvage</option>
+        <option value="watter">Eau</option>
+        <option value="air">Air</option>
+        <option value="other">Autre</option>
+      </select>
+      @if ((pollutionForm.get('pollutionType')?.touched || submitted) &&
+      pollutionForm.get('pollutionType')?.invalid) {
+      <div class="error-message">
+        <small> Le type est requis. </small>
+      </div>
+      }
+    </div>
+
+    <div class="form-input">
+      <label for="description">Description: </label>
+      <textarea id="description" formControlName="description"></textarea>
+      @if ((pollutionForm.get('description')?.touched || submitted) &&
+      pollutionForm.get('description')?.invalid) {
+      <div class="error-message">
+        <small> La description est requise (min 10 caractères). </small>
+      </div>
+      }
+    </div>
+
+    <div class="form-input">
+      <label for="observation-date">Date d'observation: </label>
+      <input
+        type="date"
+        id="observation-date"
+        formControlName="observationDate"
+      />
+      @if ((pollutionForm.get('observationDate')?.touched || submitted) &&
+      pollutionForm.get('observationDate')?.invalid) {
+      <div class="error-message">
+        <small
+          *ngIf="pollutionForm.get('observationDate')?.errors?.['futureDate']"
+          >La date ne peut pas être dans le futur.</small
+        >
+        <small
+          *ngIf="!pollutionForm.get('observationDate')?.errors?.['futureDate']"
+          >La date est requise.</small
+        >
+      </div>
+      }
+    </div>
+
+    <div class="form-input">
+      <label for="location">Lieu: </label>
+      <input type="text" id="location" formControlName="location" />
+      @if ((pollutionForm.get('location')?.touched || submitted) &&
+      pollutionForm.get('location')?.invalid) {
+      <div class="error-message">
+        <small> Le lieu est requis. </small>
+      </div>
+      }
+    </div>
+
+    <div class="coordinates">
+      <div class="form-input">
+        <label for="latitude">Latitude: </label>
+        <input
+          type="number"
+          id="latitude"
+          formControlName="latitude"
+          step="any"
+        />
+        @if ((pollutionForm.get('latitude')?.touched || submitted) &&
+        pollutionForm.get('latitude')?.invalid) {
+        <div class="error-message">
+          <small>Latitude invalide (-90 à 90).</small>
+        </div>
+        }
+      </div>
+
+      <div class="form-input">
+        <label for="longitude">Longitude: </label>
+        <input
+          type="number"
+          id="longitude"
+          formControlName="longitude"
+          step="any"
+        />
+        @if ((pollutionForm.get('longitude')?.touched || submitted) &&
+        pollutionForm.get('longitude')?.invalid) {
+        <div class="error-message">
+          <small>Longitude invalide (-180 à 180).</small>
+        </div>
+        }
+      </div>
+    </div>
+
+    <div class="form-input">
+      <label for="photo-url">URL de la photo: </label>
+      <input type="url" id="photo-url" formControlName="photographUrl" />
+      @if ((pollutionForm.get('photographUrl')?.touched || submitted) &&
+      pollutionForm.get('photographUrl')?.invalid) {
+      <div class="error-message">
+        <small>URL invalide.</small>
+      </div>
+      }
+    </div>
+
+    <button
+      type="submit"
+      [disabled]="!pollutionForm.valid"
+      class="submit-form-button"
+    >
+      Déclarer le formulaire
+    </button>
+  </form>
+
+  } @if (pollutionFormValid) {
+  <div>
+    <app-pollution-summary
+      (reset)="resetForm()"
+      [pollutionFormValues]="pollutionFormValues"
+    ></app-pollution-summary>
+  </div>
+  }
+</div>
