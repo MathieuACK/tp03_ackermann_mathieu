@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -8,10 +8,9 @@ import {
   AbstractControl,
   ValidationErrors,
 } from '@angular/forms';
-import {
-  PollutionSummaryComponent,
-  Pollution,
-} from '../pollution-summary/pollution-summary.component';
+import { PollutionSummaryComponent } from '../pollution-summary/pollution-summary.component';
+import { Pollution } from '../../models/pollutions';
+import { PollutionsService } from '../../services/pollutions.service';
 
 function noFutureDateValidator(
   control: AbstractControl
@@ -31,10 +30,23 @@ function noFutureDateValidator(
   templateUrl: './pollution-report.component.html',
   styleUrls: ['./pollution-report.component.css'],
 })
-export class PollutionReportComponent {
+export class PollutionReportComponent implements OnInit {
   pollutionFormValid: boolean = false;
   pollutionFormValues: Pollution | null = null;
   submitted = false;
+  nextId: number = 1;
+
+  constructor(private pollutionsService: PollutionsService) {}
+
+  ngOnInit(): void {
+    // Récupérer l'ID maximum actuel
+    this.pollutionsService.getPollutions().subscribe((pollutions) => {
+      if (pollutions && pollutions.length > 0) {
+        const maxId = Math.max(...pollutions.map((p) => p.id));
+        this.nextId = maxId + 1;
+      }
+    });
+  }
 
   pollutionForm = new FormGroup({
     title: new FormControl('', Validators.required),
@@ -70,6 +82,7 @@ export class PollutionReportComponent {
 
     const rawFromValue = this.pollutionForm.value as any;
     this.pollutionFormValues = {
+      id: this.nextId, // Utilise l'ID auto-incrémenté
       title: rawFromValue.title,
       pollutionType: rawFromValue.pollutionType,
       description: rawFromValue.description,
@@ -80,6 +93,7 @@ export class PollutionReportComponent {
       photographUrl: rawFromValue.photographUrl || null,
     };
     this.pollutionFormValid = true;
+    this.nextId++; // Incrémente pour la prochaine pollution
   }
 
   resetForm() {

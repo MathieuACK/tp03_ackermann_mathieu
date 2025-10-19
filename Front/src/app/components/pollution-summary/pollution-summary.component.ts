@@ -1,16 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-export interface Pollution {
-  title: string;
-  pollutionType: string;
-  description: string;
-  observationDate: string;
-  location: string;
-  latitude: number;
-  longitude: number;
-  photographUrl?: string | null;
-}
+import { Pollution } from '../../models/pollutions';
 
 @Component({
   selector: 'app-pollution-summary',
