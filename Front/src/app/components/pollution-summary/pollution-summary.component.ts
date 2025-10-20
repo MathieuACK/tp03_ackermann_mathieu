@@ -12,23 +12,4 @@ import { Pollution } from '../../models/pollutions';
 export class PollutionSummaryComponent {
   @Input() pollutionFormValues!: Pollution | null;
   @Output() reset = new EventEmitter<void>();
-
-  toLabel(type: string) {
-    switch (type) {
-      case 'plastic':
-        return 'Plastique';
-      case 'chemical':
-        return 'Chimique';
-      case 'wild-dump':
-        return 'Dépôt sauvage';
-      case 'watter':
-        return 'Eau';
-      case 'air':
-        return 'Air';
-      case 'other':
-        return 'Autre';
-      default:
-        return type;
-    }
-  }
 }

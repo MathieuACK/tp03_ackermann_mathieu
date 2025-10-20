@@ -20,12 +20,12 @@
       <label for="polluant">Type de polluant: </label>
       <select name="polluant" id="polluant" formControlName="pollutionType">
         <option value="">--Please choose an option--</option>
-        <option value="plastic">Plastique</option>
-        <option value="chemical">Chimique</option>
-        <option value="wild-dump">Dépôt sauvage</option>
-        <option value="watter">Eau</option>
-        <option value="air">Air</option>
-        <option value="other">Autre</option>
+        <option value="Plastique">Plastique</option>
+        <option value="Chimique">Chimique</option>
+        <option value="Dépôt sauvage">Dépôt sauvage</option>
+        <option value="Eau">Eau</option>
+        <option value="Air">Air</option>
+        <option value="Autre">Autre</option>
       </select>
       @if ((pollutionForm.get('pollutionType')?.touched || submitted) &&
       pollutionForm.get('pollutionType')?.invalid) {
