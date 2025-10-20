@@ -1,0 +1,145 @@
+<div class="pollution-list-container">
+  <header class="header">
+    <h1>Liste des Pollutions Signalées</h1>
+  </header>
+
+  <div class="filters-section">
+    <h2>Filtres de recherche</h2>
+    <div class="filters-grid">
+      <div class="filter-item">
+        <label for="titleFilter">Titre</label>
+        <input
+          type="text"
+          id="titleFilter"
+          [(ngModel)]="titleFilter"
+          (input)="applyFilters()"
+          placeholder="Rechercher par titre..."
+          class="form-control"
+        />
+      </div>
+
+      <div class="filter-item">
+        <label for="typeFilter">Type de pollution</label>
+        <select
+          id="typeFilter"
+          [(ngModel)]="typeFilter"
+          (change)="applyFilters()"
+          class="form-control"
+        >
+          <option value="">Tous les types</option>
+          @for (type of pollutionTypes; track $index) {
+          <option [value]="type">
+            {{ type }}
+          </option>
+          }
+        </select>
+      </div>
+
+      <div class="filter-item">
+        <label for="locationFilter">Localisation</label>
+        <input
+          type="text"
+          id="locationFilter"
+          [(ngModel)]="locationFilter"
+          (input)="applyFilters()"
+          placeholder="Rechercher par lieu..."
+          class="form-control"
+        />
+      </div>
+
+      <div class="filter-item">
+        <label for="dateFromFilter">Date début</label>
+        <input
+          type="date"
+          id="dateFromFilter"
+          [(ngModel)]="dateFromFilter"
+          (change)="applyFilters()"
+          class="form-control"
+        />
+      </div>
+
+      <div class="filter-item">
+        <label for="dateToFilter">Date fin</label>
+        <input
+          type="date"
+          id="dateToFilter"
+          [(ngModel)]="dateToFilter"
+          (change)="applyFilters()"
+          class="form-control"
+        />
+      </div>
+
+      <div class="filter-item filter-actions">
+        <button class="btn btn-secondary" (click)="resetFilters()">
+          Réinitialiser les filtres
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="results-section">
+    <p class="results-count">
+      {{ filteredPollutions.length }} pollution(s) trouvée(s)
+    </p>
+
+    @if (filteredPollutions.length === 0) {
+    <div class="no-results">
+      <p>Aucune pollution ne correspond à vos critères de recherche.</p>
+    </div>
+    }
+
+    <div class="pollutions-grid">
+      @for (pollution of filteredPollutions; track $index) {
+      <div class="pollution-card">
+        <div class="pollution-header">
+          <h3>{{ pollution.title }}</h3>
+          <span class="pollution-type">{{ pollution.pollutionType }}</span>
+        </div>
+
+        <div class="pollution-body">
+          <p class="pollution-description">
+            {{ pollution.description.substring(0, 100) }}
+            {{ pollution.description.length > 100 ? "..." : "" }}
+          </p>
+
+          <div class="pollution-info">
+            <div class="info-item">
+              <strong>📍 Localisation:</strong> {{ pollution.location }}
+            </div>
+            <div class="info-item">
+              <strong>📅 Date:</strong>
+              {{ pollution.observationDate | date : "dd/MM/yyyy" }}
+            </div>
+            <div class="info-item">
+              <strong>🌍 Coordonnées:</strong>
+              {{ pollution.latitude }}, {{ pollution.longitude }}
+            </div>
+          </div>
+
+          @if (pollution.photographUrl) {
+          <div class="pollution-image">
+            <img
+              [src]="pollution.photographUrl"
+              [alt]="pollution.title"
+              (error)="$any($event.target).src = 'assets/placeholder.png'"
+            />
+          </div>
+          }
+        </div>
+
+        <div class="pollution-actions">
+          <button class="btn btn-info" (click)="viewDetail(pollution.id)">
+            Voir détails
+          </button>
+          <button
+            class="btn btn-danger"
+            (click)="deletePollution(pollution.id)"
+          >
+            🗑️ Supprimer
+          </button>
+        </div>
+      </div>
+      }
+    </div>
+  </div>
+</div>
