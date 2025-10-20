@@ -1,0 +1,68 @@
+[
+  {
+    "id": 1,
+    "title": "Déversement de déchets plastiques",
+    "pollutionType": "Plastique",
+    "description": "Déversement massif de déchets plastiques dans la rivière, provoquant une pollution importante de l'écosystème aquatique. Les poissons et la faune locale sont directement menacés.",
+    "observationDate": "2025-10-15",
+    "location": "Rivière Seine, Paris",
+    "latitude": 48.8566,
+    "longitude": 2.3522,
+    "photographUrl": "https://images.unsplash.com/photo-1621451537084-482c73073a0f"
+  },
+  {
+    "id": 2,
+    "title": "Émissions industrielles toxiques",
+    "pollutionType": "Chimique",
+    "description": "L'usine chimique rejette des fumées toxiques dans l'atmosphère depuis plusieurs jours, causant des problèmes respiratoires aux habitants du quartier.",
+    "observationDate": "2025-10-12",
+    "location": "Zone industrielle de Lyon",
+    "latitude": 45.764,
+    "longitude": 4.8357,
+    "photographUrl": "https://images.unsplash.com/photo-1611273426858-450d8e3c9fce"
+  },
+  {
+    "id": 3,
+    "title": "Dépôt sauvage de déchets toxiques",
+    "pollutionType": "Dépôt sauvage",
+    "description": "Un terrain abandonné a été utilisé pour déverser des déchets toxiques et des produits chimiques, contaminant le sol sur plusieurs mètres de profondeur.",
+    "observationDate": "2025-10-08",
+    "location": "Terrain vague, Marseille",
+    "latitude": 43.2965,
+    "longitude": 5.3698,
+    "photographUrl": "https://images.unsplash.com/photo-1530587191325-3db32d826c18"
+  },
+  {
+    "id": 4,
+    "title": "Pollution sonore nocturne",
+    "pollutionType": "Autre",
+    "description": "Des travaux de construction fonctionnent 24h/24 causant une pollution sonore insupportable pour les riverains, dépassant largement les seuils autorisés.",
+    "observationDate": "2025-10-18",
+    "location": "Centre-ville de Toulouse",
+    "latitude": 43.6047,
+    "longitude": 1.4442,
+    "photographUrl": ""
+  },
+  {
+    "id": 5,
+    "title": "Pollution lumineuse excessive",
+    "pollutionType": "Autre",
+    "description": "Installation de panneaux publicitaires lumineux surdimensionnés créant une pollution lumineuse importante et perturbant la faune nocturne.",
+    "observationDate": "2025-10-10",
+    "location": "Boulevard périphérique, Bordeaux",
+    "latitude": 44.8378,
+    "longitude": -0.5792,
+    "photographUrl": "https://images.unsplash.com/photo-1519501025264-65ba15a82390"
+  },
+  {
+    "id": 6,
+    "title": "Déchets électroniques abandonnés",
+    "pollutionType": "Dépôt sauvage",
+    "description": "Importante quantité de déchets électroniques (ordinateurs, téléviseurs, batteries) abandonnés dans un espace naturel protégé.",
+    "observationDate": "2025-10-05",
+    "location": "Parc naturel des Calanques",
+    "latitude": 43.2067,
+    "longitude": 5.4481,
+    "photographUrl": "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d"
+  }
+]
