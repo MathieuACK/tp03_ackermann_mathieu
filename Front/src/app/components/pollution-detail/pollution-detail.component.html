@@ -1,0 +1,109 @@
+<div class="pollution-detail-container">
+  @if (loading) {
+  <div class="loading">
+    <div class="spinner"></div>
+    <p>Chargement des détails...</p>
+  </div>
+  } @if (error && !loading) {
+  <div class="error-message">
+    <h2>❌ Erreur</h2>
+    <p>{{ error }}</p>
+    <button class="btn btn-primary" (click)="goBack()">
+      Retour à la liste
+    </button>
+  </div>
+  } @if (pollution && !loading) {
+  <div class="detail-content">
+    <div class="detail-header">
+      <button class="btn btn-back" (click)="goBack()">
+        ← Retour à la liste
+      </button>
+      <div class="header-actions">
+        <button class="btn btn-danger" (click)="deletePollution()">
+          🗑️ Supprimer
+        </button>
+      </div>
+    </div>
+
+    <div class="detail-card">
+      <div class="card-header">
+        <h1>{{ pollution.title }}</h1>
+        <span class="pollution-type-badge">{{ pollution.pollutionType }}</span>
+      </div>
+
+      <div class="card-body">
+        @if (pollution.photographUrl) {
+        <div class="pollution-image-large">
+          <img
+            [src]="pollution.photographUrl"
+            [alt]="pollution.title"
+            (error)="$any($event.target).src = 'assets/placeholder.png'"
+          />
+        </div>
+        }
+
+        <section class="detail-section">
+          <h2>📝 Description</h2>
+          <p class="description-text">{{ pollution.description }}</p>
+        </section>
+
+        <section class="detail-section">
+          <h2>ℹ️ Informations</h2>
+          <div class="info-grid">
+            <div class="info-box">
+              <span class="info-label">Type de pollution</span>
+              <span class="info-value">{{ pollution.pollutionType }}</span>
+            </div>
+            <div class="info-box">
+              <span class="info-label">Date d'observation</span>
+              <span class="info-value">
+                {{ pollution.observationDate | date : "dd MMMM yyyy" }}
+              </span>
+            </div>
+            <div class="info-box">
+              <span class="info-label">Localisation</span>
+              <span class="info-value">{{ pollution.location }}</span>
+            </div>
+            <div class="info-box">
+              <span class="info-label">ID de signalement</span>
+              <span class="info-value">#{{ pollution.id }}</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="detail-section">
+          <h2>🌍 Coordonnées GPS</h2>
+          <div class="coordinates-box">
+            <div class="coordinate">
+              <span class="coordinate-label">Latitude:</span>
+              <span class="coordinate-value">{{ pollution.latitude }}°</span>
+            </div>
+            <div class="coordinate">
+              <span class="coordinate-label">Longitude:</span>
+              <span class="coordinate-value">{{ pollution.longitude }}°</span>
+            </div>
+            <button class="btn btn-map" (click)="openMap()">
+              🗺️ Ouvrir dans Google Maps
+            </button>
+          </div>
+        </section>
+
+        @if (pollution.photographUrl) {
+        <section class="detail-section">
+          <h2>📷 URL de la photographie</h2>
+          <div class="url-box">
+            <a
+              [href]="pollution.photographUrl"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {{ pollution.photographUrl }}
+            </a>
+          </div>
+        </section>
+        }
+      </div>
+    </div>
+  </div>
+  }
+</div>

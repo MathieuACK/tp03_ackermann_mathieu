@@ -1,0 +1,306 @@
+.pollution-detail-container {
+  max-width: 62.5rem;
+  margin: 0 auto;
+  padding: 1.25rem;
+}
+
+/* Chargement */
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 25rem;
+  color: #7f8c8d;
+}
+
+.spinner {
+  border: 0.25rem solid #f3f3f3;
+  border-top: 0.25rem solid #3498db;
+  border-radius: 50%;
+  width: 3.125rem;
+  height: 3.125rem;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1.25rem;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Erreur */
+.error-message {
+  text-align: center;
+  padding: 2.5rem;
+  background: #fee;
+  border-radius: 0.5rem;
+  margin-top: 2.5rem;
+}
+
+.error-message h2 {
+  color: #e74c3c;
+  margin-bottom: 0.9375rem;
+}
+
+.error-message p {
+  color: #c0392b;
+  margin-bottom: 1.25rem;
+}
+
+/* Header */
+.detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.875rem;
+}
+
+/* Boutons */
+.btn {
+  padding: 0.625rem 1.25rem;
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s;
+  font-size: 0.95rem;
+}
+
+.btn-back {
+  background-color: #95a5a6;
+  color: white;
+}
+
+.btn-back:hover {
+  background-color: #7f8c8d;
+}
+
+.btn-primary {
+  background-color: #3498db;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #2980b9;
+}
+
+.btn-danger {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.btn-danger:hover {
+  background-color: #c0392b;
+}
+
+.btn-map {
+  background-color: #27ae60;
+  color: white;
+  width: 100%;
+  margin-top: 0.9375rem;
+}
+
+.btn-map:hover {
+  background-color: #229954;
+}
+
+/* Card principale */
+.detail-card {
+  background: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.card-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 1.875rem;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.card-header h1 {
+  margin: 0;
+  font-size: 2rem;
+  flex: 1;
+}
+
+.pollution-type-badge {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 0.5rem 1.25rem;
+  border-radius: 1.25rem;
+  font-size: 1rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.card-body {
+  padding: 1.875rem;
+}
+
+/* Image */
+.pollution-image-large {
+  margin-bottom: 1.875rem;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.15);
+}
+
+.pollution-image-large img {
+  width: 100%;
+  height: auto;
+  max-height: 31.25rem;
+  object-fit: cover;
+  display: block;
+}
+
+/* Sections */
+.detail-section {
+  margin-bottom: 1.875rem;
+  padding-bottom: 1.875rem;
+  border-bottom: 0.0625rem solid #e0e0e0;
+}
+
+.detail-section:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.detail-section h2 {
+  color: #2c3e50;
+  font-size: 1.5rem;
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+}
+
+.description-text {
+  color: #555;
+  line-height: 1.8;
+  font-size: 1.1rem;
+  text-align: justify;
+}
+
+/* Grille d'informations */
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(13.75rem, 1fr));
+  gap: 1.25rem;
+}
+
+.info-box {
+  background: #f8f9fa;
+  padding: 1.25rem;
+  border-radius: 0.375rem;
+  border-left: 0.25rem solid #3498db;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.info-label {
+  font-size: 0.85rem;
+  color: #7f8c8d;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.03125rem;
+}
+
+.info-value {
+  font-size: 1.1rem;
+  color: #2c3e50;
+  font-weight: 600;
+}
+
+/* Coordonnées GPS */
+.coordinates-box {
+  background: #f8f9fa;
+  padding: 1.5625rem;
+  border-radius: 0.5rem;
+  border: 0.125rem solid #3498db;
+}
+
+.coordinate {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.625rem 0;
+  border-bottom: 0.0625rem solid #e0e0e0;
+}
+
+.coordinate:last-of-type {
+  border-bottom: none;
+}
+
+.coordinate-label {
+  font-weight: 600;
+  color: #555;
+}
+
+.coordinate-value {
+  font-size: 1.2rem;
+  color: #2c3e50;
+  font-weight: 700;
+  font-family: "Courier New", monospace;
+}
+
+/* URL Box */
+.url-box {
+  background: #f8f9fa;
+  padding: 1.25rem;
+  border-radius: 0.375rem;
+  word-break: break-all;
+}
+
+.url-box a {
+  color: #3498db;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.url-box a:hover {
+  text-decoration: underline;
+  color: #2980b9;
+}
+
+/* Responsive */
+@media (max-width: 48rem) {
+  .card-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .card-header h1 {
+    font-size: 1.5rem;
+  }
+
+  .pollution-type-badge {
+    align-self: flex-start;
+  }
+
+  .detail-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.625rem;
+  }
+
+  .info-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .coordinate {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.3125rem;
+  }
+}
