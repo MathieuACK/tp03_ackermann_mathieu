@@ -1,1 +1,25 @@
-<app-pollution-report></app-pollution-report>
+<div class="app-container">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <h1>🌍 Pollution Tracker</h1>
+    </div>
+    <div class="navbar-menu">
+      <a routerLink="/list" routerLinkActive="active" class="nav-link">
+        📋 Liste des pollutions
+      </a>
+      <a routerLink="/report" routerLinkActive="active" class="nav-link">
+        ➕ Signaler une pollution
+      </a>
+    </div>
+  </nav>
+
+  <main class="main-content">
+    <router-outlet></router-outlet>
+  </main>
+
+  <footer class="footer">
+    <p>
+      &copy; 2025 Pollution Tracker - Application de signalement de pollutions
+    </p>
+  </footer>
+</div>
