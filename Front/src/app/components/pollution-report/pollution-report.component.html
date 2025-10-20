@@ -56,14 +56,11 @@
       @if ((pollutionForm.get('observationDate')?.touched || submitted) &&
       pollutionForm.get('observationDate')?.invalid) {
       <div class="error-message">
-        <small
-          *ngIf="pollutionForm.get('observationDate')?.errors?.['futureDate']"
-          >La date ne peut pas être dans le futur.</small
-        >
-        <small
-          *ngIf="!pollutionForm.get('observationDate')?.errors?.['futureDate']"
-          >La date est requise.</small
-        >
+        @if (pollutionForm.get('observationDate')?.errors?.['futureDate']) {
+        <small>La date ne peut pas être dans le futur.</small>
+        } @if (!pollutionForm.get('observationDate')?.errors?.['futureDate']){
+        <small>La date est requise.</small>
+        }
       </div>
       }
     </div>

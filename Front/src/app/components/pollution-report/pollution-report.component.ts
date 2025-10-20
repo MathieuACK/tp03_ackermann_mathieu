@@ -39,7 +39,6 @@ export class PollutionReportComponent implements OnInit {
   constructor(private pollutionsService: PollutionsService) {}
 
   ngOnInit(): void {
-    // Récupérer l'ID maximum actuel
     this.pollutionsService.getPollutions().subscribe((pollutions) => {
       if (pollutions && pollutions.length > 0) {
         const maxId = Math.max(...pollutions.map((p) => p.id));
@@ -75,6 +74,7 @@ export class PollutionReportComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
+
     if (this.pollutionForm.invalid) {
       this.pollutionForm.markAllAsTouched();
       return;
@@ -82,7 +82,7 @@ export class PollutionReportComponent implements OnInit {
 
     const rawFromValue = this.pollutionForm.value as any;
     this.pollutionFormValues = {
-      id: this.nextId, // Utilise l'ID auto-incrémenté
+      id: this.nextId,
       title: rawFromValue.title,
       pollutionType: rawFromValue.pollutionType,
       description: rawFromValue.description,
@@ -93,7 +93,18 @@ export class PollutionReportComponent implements OnInit {
       photographUrl: rawFromValue.photographUrl || null,
     };
     this.pollutionFormValid = true;
-    this.nextId++; // Incrémente pour la prochaine pollution
+    this.pollutionsService
+      .addPollution(this.pollutionFormValues as Pollution)
+      .subscribe({
+        next: (data) => {
+          this.pollutionFormValid = true;
+          this.pollutionForm.reset();
+        },
+        error: (error) => {
+          console.error("Erreur lors de l'ajout de la pollution:", error);
+        },
+      });
+    this.nextId++;
   }
 
   resetForm() {
