@@ -12,46 +12,33 @@ import { somePollutions } from '../data/pollutions';
 })
 export class PollutionsService {
   private existingPollutions: Pollution[] = somePollutions;
-  private isDataLoaded = false;
 
   constructor(private http: HttpClient) {}
 
   private fetchPollutionData(): Observable<Pollution[]> {
-    if (this.isDataLoaded) {
-      return of(this.existingPollutions);
-    }
-
-    return this.http.get<Pollution[]>(environment.backendClient).pipe(
-      map((data) => {
-        this.existingPollutions = [...data];
-        this.isDataLoaded = true;
-        return this.existingPollutions;
-      })
-    );
+    return of(this.existingPollutions);
   }
 
   public getPollutions(): Observable<Pollution[]> {
-    return this.fetchPollutionData().pipe(delay(200));
+    return of(this.existingPollutions);
   }
 
   public getPollutionById(id: number): Observable<Pollution> {
-    return this.fetchPollutionData().pipe(
-      delay(150),
-      switchMap((pollutions) => {
+    return of(this.existingPollutions).pipe(
+      delay(200),
+      map((pollutions) => {
         const pollution = pollutions.find((p) => p.id === id);
         if (pollution) {
-          return of(pollution);
+          return pollution;
         } else {
-          return throwError(
-            () => new Error(`Pollution avec l'ID ${id} non trouvée`)
-          );
+          throw new Error(`Pollution avec l'ID ${id} non trouvée`);
         }
       })
     );
   }
 
   public addPollution(pollution: Pollution): Observable<Pollution> {
-    return this.fetchPollutionData().pipe(
+    return of(this.existingPollutions).pipe(
       delay(300),
       switchMap(() => {
         const maxId =
@@ -68,7 +55,7 @@ export class PollutionsService {
   }
 
   public deletePollution(id: number): Observable<void> {
-    return this.fetchPollutionData().pipe(
+    return of(this.fetchPollutionData()).pipe(
       delay(250),
       switchMap(() => {
         const index = this.existingPollutions.findIndex((p) => p.id === id);
@@ -91,7 +78,7 @@ export class PollutionsService {
     id: number,
     pollution: Pollution
   ): Observable<Pollution> {
-    return this.fetchPollutionData().pipe(
+    return of(this.existingPollutions).pipe(
       delay(300),
       switchMap(() => {
         const index = this.existingPollutions.findIndex((p) => p.id === id);
