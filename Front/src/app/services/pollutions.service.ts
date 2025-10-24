@@ -5,26 +5,27 @@ import { Observable, of, throwError } from 'rxjs';
 import { map, delay, switchMap } from 'rxjs/operators';
 import { Pollution } from '../models/pollutions';
 import { environment } from '../../environments/environment';
+import { somePollutions } from '../data/pollutions';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PollutionsService {
-  private pollutionsCache: Pollution[] = [];
+  private existingPollutions: Pollution[] = somePollutions;
   private isDataLoaded = false;
 
   constructor(private http: HttpClient) {}
 
   private fetchPollutionData(): Observable<Pollution[]> {
     if (this.isDataLoaded) {
-      return of(this.pollutionsCache);
+      return of(this.existingPollutions);
     }
 
     return this.http.get<Pollution[]>(environment.backendClient).pipe(
       map((data) => {
-        this.pollutionsCache = [...data];
+        this.existingPollutions = [...data];
         this.isDataLoaded = true;
-        return this.pollutionsCache;
+        return this.existingPollutions;
       })
     );
   }
@@ -54,12 +55,12 @@ export class PollutionsService {
       delay(300),
       switchMap(() => {
         const maxId =
-          this.pollutionsCache.length > 0
-            ? Math.max(...this.pollutionsCache.map((p) => p.id))
+          this.existingPollutions.length > 0
+            ? Math.max(...this.existingPollutions.map((p) => p.id))
             : 0;
 
         const newPollution = { ...pollution, id: maxId + 1 };
-        this.pollutionsCache.push(newPollution);
+        this.existingPollutions.push(newPollution);
 
         return of(newPollution);
       })
@@ -70,9 +71,9 @@ export class PollutionsService {
     return this.fetchPollutionData().pipe(
       delay(250),
       switchMap(() => {
-        const index = this.pollutionsCache.findIndex((p) => p.id === id);
+        const index = this.existingPollutions.findIndex((p) => p.id === id);
         if (index !== -1) {
-          this.pollutionsCache.splice(index, 1);
+          this.existingPollutions.splice(index, 1);
           return of(void 0);
         } else {
           return throwError(
@@ -93,10 +94,10 @@ export class PollutionsService {
     return this.fetchPollutionData().pipe(
       delay(300),
       switchMap(() => {
-        const index = this.pollutionsCache.findIndex((p) => p.id === id);
+        const index = this.existingPollutions.findIndex((p) => p.id === id);
         if (index !== -1) {
           const updatedPollution = { ...pollution, id };
-          this.pollutionsCache[index] = updatedPollution;
+          this.existingPollutions[index] = updatedPollution;
           return of(updatedPollution);
         } else {
           return throwError(
