@@ -1,5 +1,5 @@
 import { Express, Router } from "express";
-import { create, getAll } from "../controllers/pollution.controllers";
+import { create, getAll } from "../controllers/user.controllers";
 
 export function users(app: Express) {
   const router = Router();
